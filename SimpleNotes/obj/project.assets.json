@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Projetos\\SimpleNotes\\SimpleNotes\\SimpleNotes.csproj",
+      "projectUniqueName": "C:\\Users\\hiago\\RiderProjects\\SimpleNotesApp\\SimpleNotes\\SimpleNotes.csproj",
       "projectName": "SimpleNotes",
-      "projectPath": "C:\\Projetos\\SimpleNotes\\SimpleNotes\\SimpleNotes.csproj",
+      "projectPath": "C:\\Users\\hiago\\RiderProjects\\SimpleNotesApp\\SimpleNotes\\SimpleNotes.csproj",
       "packagesPath": "C:\\Users\\hiago\\.nuget\\packages\\",
-      "outputPath": "C:\\Projetos\\SimpleNotes\\SimpleNotes\\obj\\",
+      "outputPath": "C:\\Users\\hiago\\RiderProjects\\SimpleNotesApp\\SimpleNotes\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\hiago\\AppData\\Roaming\\NuGet\\NuGet.Config"
