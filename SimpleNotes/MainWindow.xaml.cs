@@ -25,4 +25,10 @@ public partial class MainWindow : Window
     {
         Application.Current.Shutdown();
     }
+
+    public void aboutBtn_Click(Object sender, RoutedEventArgs e)
+    {
+       var aboutWindow = new AboutWindow();
+        aboutWindow.ShowDialog();
+    }
 }

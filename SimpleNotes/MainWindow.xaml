@@ -9,6 +9,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <!-- Linha do menu -->
+            
             <RowDefinition Height="Auto"/>
 
             <!-- Área de edição -->
@@ -32,8 +33,8 @@
                           Click="exitBtn_Click"/>
             </MenuItem>
 
-            <MenuItem Header="Ajuda">
-                <MenuItem Header="Sobre" Name="aboutBtn"/>
+            <MenuItem Header="Ajuda" >
+                <MenuItem Header="Sobre" Name="aboutBtn" Click="aboutBtn_Click" />
             </MenuItem>
 
         </Menu>
