@@ -162,6 +162,29 @@ public partial class MainWindow : Window
 
         StatusMessage.Text = "Novo documento criado.";
     }
+  
+    // abrir documento.
+    private bool OpenDocument(string filePath)
+    {
+        if (!documentService.OpenDocument(
+            filePath,
+            out Exception? error))
+        {
+            ShowFileError("abrir", error);
+            return false;
+        }
+
+        UpdateEditor();
+
+        StatusMessage.Text = "Arquivo aberto com sucesso.";
+
+        return true;
+    }
+    // abrir documento pelo cmd.
+    internal void OpenFileFromCommandLine(string filePath)
+    {
+        OpenDocument(filePath);
+    }
 
     // Abre um documento existente.
     private void openFileBtn_Click(object sender, RoutedEventArgs e)
@@ -177,18 +200,9 @@ public partial class MainWindow : Window
         if (!ConfirmUnsavedChanges())
             return;
 
-        if (!documentService.OpenDocument(
-            openFileDialog.FileName,
-            out Exception? error))
-        {
-            ShowFileError("abrir", error);
-            return;
-        }
-
-        UpdateEditor();
-
-        StatusMessage.Text = "Arquivo aberto com sucesso.";
+        OpenDocument(openFileDialog.FileName);
     }
+
 
     // Salva o documento atual.
     private void saveFileBtn_Click(object sender, RoutedEventArgs e)
