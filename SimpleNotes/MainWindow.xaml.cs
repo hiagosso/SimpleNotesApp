@@ -1,64 +1,98 @@
-﻿using Microsoft.Win32;
-using SimpleNotes.utils;
+﻿
+using Microsoft.Win32;
+using SimpleNotes.Services;
+using System;
+using System.ComponentModel;
+using System.IO;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace SimpleNotes;
 
-/// <summary>
-/// Interaction logic for MainWindow.xaml
-/// </summary>
 public partial class MainWindow : Window
 {
-    private string? currentFilePath;
-    private bool isModified = false;
+    private readonly DocumentService documentService = new();
+
+    private bool isLoadingDocument = false;
+
     private double currentFontSize = 20;
-    private const double MinFontSize = 15;
+
+    private const double MinFontSize = 10;
     private const double MaxFontSize = 40;
 
     public MainWindow()
     {
         InitializeComponent();
+
         UpdateTitle();
-        
+        UpdateZoomIndicator();
     }
+
+    // Atualiza o título da janela.
     private void UpdateTitle()
     {
-        string fileName = currentFilePath != null
-            ? System.IO.Path.GetFileName(currentFilePath)
-            : "Novo arquivo.txt";
+        var document = documentService.CurrentDocument;
 
-        Title = "Simple Notes - " + (isModified ? "*" : "") + fileName;
+        string fileName = document.FilePath != null
+            ? Path.GetFileName(document.FilePath)
+            : "Sem título";
+
+        Title = "Simple Notes - "
+            + (document.IsModified ? "*" : "")
+            + fileName;
     }
 
-    public void exitBtn_Click(object sender, RoutedEventArgs e)
+    // Atualiza o indicador de zoom.
+    private void UpdateZoomIndicator()
     {
-        Application.Current.Shutdown();
+        ZoomIndicator.Text = $"Zoom: {currentFontSize:0}";
     }
 
-    public void aboutBtn_Click(Object sender, RoutedEventArgs e)
+    // Atualiza o editor com o conteúdo do documento atual.
+    private void UpdateEditor()
     {
-        var aboutWindow = new AboutWindow();
-        aboutWindow.ShowDialog();
+        isLoadingDocument = true;
+
+        textArea.Text = documentService.CurrentDocument.Content;
+
+        isLoadingDocument = false;
+
+        UpdateTitle();
     }
 
-    public void openFileBtn_Click(object sender, RoutedEventArgs e)
+    // Confirma se o usuário deseja salvar alterações pendentes.
+    private bool ConfirmUnsavedChanges()
     {
-        var openFileDialog = new OpenFileDialog();
-        openFileDialog.Filter = "Arquivos de texto (*.txt)|*.txt|Todos os arquivos (*.*)|*.*";
+        if (!documentService.CurrentDocument.IsModified)
+            return true;
 
-        if (openFileDialog.ShowDialog() == true)
+        MessageBoxResult result = MessageBox.Show(
+            "Existem alterações não salvas. Deseja salvar?",
+            "Simple Notes",
+            MessageBoxButton.YesNoCancel,
+            MessageBoxImage.Warning
+        );
+
+        switch (result)
         {
-            textArea.Text = FileOperations.OpenFile(openFileDialog.FileName);
-            currentFilePath = openFileDialog.FileName;
-            isModified = false;
-            UpdateTitle();
+            case MessageBoxResult.Yes:
+                return SaveCurrentDocument();
+
+            case MessageBoxResult.No:
+                return true;
+
+            default:
+                return false;
         }
     }
 
-    public void SaveFileBtn_Click(object sender, RoutedEventArgs e)
+    // Salva o documento atual.
+    private bool SaveCurrentDocument()
     {
-        if (currentFilePath == null)
+        var document = documentService.CurrentDocument;
+
+        if (document.FilePath == null)
         {
             var saveFileDialog = new SaveFileDialog
             {
@@ -68,51 +102,183 @@ public partial class MainWindow : Window
                 AddExtension = true
             };
 
-            if (saveFileDialog.ShowDialog() == true)
-            {
-                currentFilePath = saveFileDialog.FileName;
-            }
-            else
-            {
-                return;
-            }
+            if (saveFileDialog.ShowDialog() != true)
+                return false;
+
+            return SaveDocumentAs(saveFileDialog.FileName);
         }
 
-        FileOperations.SaveFile(currentFilePath, textArea.Text);
+        if (!documentService.SaveDocument(out Exception? error))
+        {
+            ShowFileError("salvar", error);
+            return false;
+        }
 
-        isModified = false;
+        StatusMessage.Text = "Arquivo salvo com sucesso.";
+
+        UpdateTitle();
+
+        return true;
+    }
+
+    // Salva o documento em um caminho específico.
+    private bool SaveDocumentAs(string filePath)
+    {
+        if (!documentService.SaveDocumentAs(filePath, out Exception? error))
+        {
+            ShowFileError("salvar", error);
+            return false;
+        }
+
+        StatusMessage.Text = "Arquivo salvo com sucesso.";
+
+        UpdateTitle();
+
+        return true;
+    }
+
+    // Exibe erros relacionados às operações de arquivo.
+    private void ShowFileError(string operation, Exception? error)
+    {
+        MessageBox.Show(
+            $"Não foi possível {operation} o arquivo.\n\n{error?.Message}",
+            "Erro",
+            MessageBoxButton.OK,
+            MessageBoxImage.Error
+        );
+
+        StatusMessage.Text = "Erro na operação do arquivo.";
+    }
+
+    // Cria um novo documento.
+    private void newFileBtn_Click(object sender, RoutedEventArgs e)
+    {
+        if (!ConfirmUnsavedChanges())
+            return;
+
+        documentService.NewDocument();
+
+        UpdateEditor();
+
+        StatusMessage.Text = "Novo documento criado.";
+    }
+
+    // Abre um documento existente.
+    private void openFileBtn_Click(object sender, RoutedEventArgs e)
+    {
+        var openFileDialog = new OpenFileDialog
+        {
+            Filter = "Arquivos de texto (*.txt)|*.txt|Todos os arquivos (*.*)|*.*"
+        };
+
+        if (openFileDialog.ShowDialog() != true)
+            return;
+
+        if (!ConfirmUnsavedChanges())
+            return;
+
+        if (!documentService.OpenDocument(
+            openFileDialog.FileName,
+            out Exception? error))
+        {
+            ShowFileError("abrir", error);
+            return;
+        }
+
+        UpdateEditor();
+
+        StatusMessage.Text = "Arquivo aberto com sucesso.";
+    }
+
+    // Salva o documento atual.
+    private void saveFileBtn_Click(object sender, RoutedEventArgs e)
+    {
+        SaveCurrentDocument();
+    }
+
+    // Salva o documento com outro nome ou caminho.
+    private void SaveFileAsBtn_Click(object sender, RoutedEventArgs e)
+    {
+        string fileName = documentService.CurrentDocument.FilePath != null
+            ? Path.GetFileName(documentService.CurrentDocument.FilePath)
+            : "Novo arquivo.txt";
+
+        var saveFileDialog = new SaveFileDialog
+        {
+            Filter = "Arquivos de texto (*.txt)|*.txt|Todos os arquivos (*.*)|*.*",
+            FileName = fileName,
+            DefaultExt = ".txt",
+            AddExtension = true
+        };
+
+        if (saveFileDialog.ShowDialog() != true)
+            return;
+
+        SaveDocumentAs(saveFileDialog.FileName);
+    }
+
+    // Fecha a janela.
+    private void exitBtn_Click(object sender, RoutedEventArgs e)
+    {
+        Close();
+    }
+
+    // Abre a janela Sobre.
+    private void aboutBtn_Click(object sender, RoutedEventArgs e)
+    {
+        var aboutWindow = new AboutWindow();
+
+        aboutWindow.Owner = this;
+        aboutWindow.ShowDialog();
+    }
+
+    // Detecta alterações no conteúdo do editor.
+    private void textArea_TextChanged(
+        object sender,
+        TextChangedEventArgs e)
+    {
+        if (isLoadingDocument)
+            return;
+
+        documentService.UpdateContent(textArea.Text);
+
         UpdateTitle();
     }
 
-    private void textArea_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+    // Controla o zoom usando Ctrl + roda do mouse.
+    private void TextArea_PreviewMouseWheel(
+        object sender,
+        MouseWheelEventArgs e)
     {
-        if (!isModified)
+        if (!Keyboard.IsKeyDown(Key.LeftCtrl) &&
+            !Keyboard.IsKeyDown(Key.RightCtrl))
         {
-            isModified = true;
-            UpdateTitle();
+            return;
         }
+
+        currentFontSize += e.Delta > 0 ? 1 : -1;
+
+        currentFontSize = Math.Clamp(
+            currentFontSize,
+            MinFontSize,
+            MaxFontSize
+        );
+
+        textArea.FontSize = currentFontSize;
+
+        UpdateZoomIndicator();
+
+        e.Handled = true;
     }
 
-    private void TextArea_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
+    // Impede o fechamento caso existam alterações não salvas.
+    private void MainWindow_Closing(
+        object? sender,
+        CancelEventArgs e)
     {
-        if (Keyboard.IsKeyDown(Key.LeftCtrl) ||
-            Keyboard.IsKeyDown(Key.RightCtrl))
+        if (!ConfirmUnsavedChanges())
         {
-            if (e.Delta > 0)
-                currentFontSize += 1;
-            else
-                currentFontSize -= 1;
-
-            currentFontSize = Math.Clamp(
-                currentFontSize,
-                MinFontSize,
-                MaxFontSize
-            );
-
-            textArea.FontSize = currentFontSize;
-
-            e.Handled = true;
+            e.Cancel = true;
         }
     }
-
 }

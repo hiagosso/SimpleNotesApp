@@ -5,44 +5,57 @@
         Title="Simple Notes"
         Height="600"
         Width="800"
-        WindowStartupLocation="CenterScreen">
+        MinHeight="400"
+        MinWidth="500"
+        WindowStartupLocation="CenterScreen"
+        Closing="MainWindow_Closing">
 
     <Grid>
         <Grid.RowDefinitions>
-            <!-- Linha do menu -->
-
             <RowDefinition Height="Auto"/>
-
-            <!-- Área de edição -->
             <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <!-- Menu superior -->
-        <Menu Grid.Row="0"
-              HorizontalAlignment="Stretch">
+        <!-- Menu principal -->
+        <Menu Grid.Row="0">
 
-            <MenuItem Header="Arquivo">
-                <MenuItem Header="Novo" Name="newFileBtn"/>
-                <MenuItem Header="Abrir" Name="openFileBtn" Click="openFileBtn_Click"/>
-                <MenuItem Header="Salvar" Name="saveFileBtn" Click="SaveFileBtn_Click"/>
-                <MenuItem Header="Salvar Como" Name="saveAsFileBtn"/>
+            <MenuItem Header="_Arquivo">
+                <MenuItem Header="_Novo"
+                          Name="newFileBtn"
+                          Click="newFileBtn_Click"/>
+
+                <MenuItem Header="_Abrir"
+                          Name="openFileBtn"
+                          Click="openFileBtn_Click"/>
+
+                <MenuItem Header="_Salvar"
+                          Name="saveFileBtn"
+                          Click="saveFileBtn_Click"/>
+
+                <MenuItem Header="Salvar _Como"
+                          Name="saveAsFileBtn"
+                          Click="SaveFileAsBtn_Click"/>
 
                 <Separator/>
 
-                <MenuItem Header="Sair"
+                <MenuItem Header="_Sair"
                           Name="exitBtn"
                           Click="exitBtn_Click"/>
             </MenuItem>
 
-            <MenuItem Header="Ajuda" >
-                <MenuItem Header="Sobre" Name="aboutBtn" Click="aboutBtn_Click" />
+            <MenuItem Header="_Ajuda">
+                <MenuItem Header="_Sobre"
+                          Name="aboutBtn"
+                          Click="aboutBtn_Click"/>
             </MenuItem>
 
         </Menu>
 
-        <!-- Área de texto -->
+        <!-- Área de edição -->
         <TextBox Grid.Row="1"
                  Name="textArea"
+                 FontSize="20"
                  AcceptsReturn="True"
                  AcceptsTab="True"
                  TextWrapping="Wrap"
@@ -51,9 +64,22 @@
                  BorderThickness="0"
                  Padding="10"
                  TextChanged="textArea_TextChanged"
-                 FontSize="14"
                  PreviewMouseWheel="TextArea_PreviewMouseWheel"/>
 
-    </Grid>
+        <!-- Barra de status -->
+        <StatusBar Grid.Row="2">
+            <StatusBarItem>
+                <TextBlock Name="StatusMessage"
+                           Text="Pronto"/>
+            </StatusBarItem>
 
+            <Separator/>
+
+            <StatusBarItem HorizontalAlignment="Right">
+                <TextBlock Name="ZoomIndicator"
+                           Text="Zoom: 20"/>
+            </StatusBarItem>
+        </StatusBar>
+
+    </Grid>
 </Window>
