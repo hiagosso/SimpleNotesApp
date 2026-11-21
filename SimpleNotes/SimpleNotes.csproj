@@ -8,6 +8,9 @@
         <UseWPF>true</UseWPF>
 		<SelfContained>true</SelfContained>
 		<RuntimeIdentifier>win-x64</RuntimeIdentifier>
+
+
+		<ApplicationIcon>Assets\icone.ico</ApplicationIcon>
     </PropertyGroup>
 
     <ItemGroup>

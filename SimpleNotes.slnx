@@ -1,5 +1,5 @@
 <Solution>
-  <Folder Name="/Instaler/">
+  <Folder Name="/Installer/">
     <File Path="SimpleNotes.iss" />
   </Folder>
   <Project Path="SimpleNotes/SimpleNotes.csproj" />
