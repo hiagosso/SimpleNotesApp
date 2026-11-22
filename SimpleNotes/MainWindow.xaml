@@ -8,6 +8,9 @@
         MinHeight="400"
         MinWidth="500"
         WindowStartupLocation="CenterScreen"
+        Focusable="True"
+        PreviewKeyDown="MainWindow_PreviewKeyDown"
+        Loaded="MainWindow_Loaded"
         Closing="MainWindow_Closing">
 
     <Grid>
@@ -22,32 +25,32 @@
 
             <MenuItem Header="_Arquivo">
                 <MenuItem Header="_Novo"
-                          Name="newFileBtn"
-                          Click="newFileBtn_Click"/>
+              Click="newFileBtn_Click"
+              InputGestureText="Ctrl+N"/>
 
                 <MenuItem Header="_Abrir"
-                          Name="openFileBtn"
-                          Click="openFileBtn_Click"/>
+              Click="openFileBtn_Click"
+              InputGestureText="Ctrl+O"/>
+
+                <Separator/>
 
                 <MenuItem Header="_Salvar"
-                          Name="saveFileBtn"
-                          Click="saveFileBtn_Click"/>
+              Click="saveFileBtn_Click"
+              InputGestureText="Ctrl+S"/>
 
-                <MenuItem Header="Salvar _Como"
-                          Name="saveAsFileBtn"
-                          Click="SaveFileAsBtn_Click"/>
+                <MenuItem Header="Salvar _como..."
+              Click="SaveFileAsBtn_Click"
+              InputGestureText="Ctrl+Shift+S"/>
 
                 <Separator/>
 
                 <MenuItem Header="_Sair"
-                          Name="exitBtn"
-                          Click="exitBtn_Click"/>
+              Click="exitBtn_Click"
+              InputGestureText="Esc"/>
             </MenuItem>
 
             <MenuItem Header="_Ajuda">
-                <MenuItem Header="_Sobre"
-                          Name="aboutBtn"
-                          Click="aboutBtn_Click"/>
+                <MenuItem Header="_Sobre" Click="aboutBtn_Click"></MenuItem>                
             </MenuItem>
 
         </Menu>

@@ -28,6 +28,12 @@ public partial class MainWindow : Window
         UpdateTitle();
         UpdateZoomIndicator();
     }
+    private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+    {
+        Activate();
+        Focus();
+        textArea.Focus();
+    }
 
     // Atualiza o título da janela.
     private void UpdateTitle()
@@ -260,9 +266,7 @@ public partial class MainWindow : Window
     }
 
     // Controla o zoom usando Ctrl + roda do mouse.
-    private void TextArea_PreviewMouseWheel(
-        object sender,
-        MouseWheelEventArgs e)
+    private void TextArea_PreviewMouseWheel(object sender,MouseWheelEventArgs e)
     {
         if (!Keyboard.IsKeyDown(Key.LeftCtrl) &&
             !Keyboard.IsKeyDown(Key.RightCtrl))
@@ -286,13 +290,51 @@ public partial class MainWindow : Window
     }
 
     // Impede o fechamento caso existam alterações não salvas.
-    private void MainWindow_Closing(
-        object? sender,
-        CancelEventArgs e)
+    private void MainWindow_Closing(object? sender, CancelEventArgs e)
     {
         if (!ConfirmUnsavedChanges())
         {
             e.Cancel = true;
+        }
+    }
+
+    private void MainWindow_PreviewKeyDown(object sender, KeyEventArgs e)
+    {
+        // Evita que teclas modificadoras interfiram na identificação do atalho.
+        ModifierKeys modifiers = Keyboard.Modifiers;
+
+        if (modifiers == ModifierKeys.Control)
+        {
+            switch (e.Key)
+            {
+                case Key.N:
+                    newFileBtn_Click(this, new RoutedEventArgs());
+                    e.Handled = true;
+                    break;
+
+                case Key.O:
+                    openFileBtn_Click(this, new RoutedEventArgs());
+                    e.Handled = true;
+                    break;
+
+                case Key.S:
+                    saveFileBtn_Click(this, new RoutedEventArgs());
+                    e.Handled = true;
+                    break;
+            }
+        }
+        else if (modifiers == (ModifierKeys.Control | ModifierKeys.Shift))
+        {
+            if (e.Key == Key.S)
+            {
+                SaveFileAsBtn_Click(this, new RoutedEventArgs());
+                e.Handled = true;
+            }
+        }
+        else if (modifiers == ModifierKeys.None && e.Key == Key.Escape)
+        {
+            Close();
+            e.Handled = true;
         }
     }
 }
