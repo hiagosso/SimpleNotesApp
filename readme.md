@@ -1,4 +1,4 @@
-﻿# SimpleNotes
+# SimpleNotes
 
 Um editor de texto para Windows, desenvolvido em C# com WPF e .NET 10.
 
@@ -13,9 +13,15 @@ O SimpleNotes tem como objetivo oferecer uma experiência simples e direta para 
 - Identificar alterações não salvas.
 - Solicitar confirmação antes de descartar alterações.
 - Controle de zoom utilizando `Ctrl + roda do mouse`.
+- Atalhos de teclado:
+  - `Ctrl + N`: Novo documento.
+  - `Ctrl + O`: Abrir arquivo.
+  - `Ctrl + S`: Salvar.
+  - `Ctrl + Shift + S`: Salvar como.
+  - `Esc`: Sair da aplicação.
 - Abertura de arquivos por argumentos de linha de comando.
 - Integração com o menu de contexto do Windows.
-- Registro como aplicativo compatível com arquivos de diferentes extensões.
+- Registro do aplicativo para facilitar a abertura de arquivos.
 - Instalador e desinstalador para Windows.
 
 ## Tecnologias utilizadas
@@ -54,6 +60,7 @@ SimpleNotes/
 ├── App.xaml
 ├── App.xaml.cs
 ├── SimpleNotes.csproj
+├── LICENSE
 └── README.md
 ```
 
@@ -75,7 +82,7 @@ git clone https://github.com/hiagosso/SimpleNotesApp.git
 Entre na pasta do projeto:
 
 ```bash
-cd SimpleNotes
+cd SimpleNotesApp
 ```
 
 Execute:
@@ -98,7 +105,7 @@ Também é possível executar diretamente o aplicativo:
 SimpleNotes.exe "C:\Documentos\anotacoes.txt"
 ```
 
-Esse mecanismo permite que o Windows encaminhe arquivos ao aplicativo por meio do menu de contexto e de associações de arquivos.
+Esse mecanismo permite que o Windows encaminhe arquivos ao aplicativo por meio do menu de contexto e de associações configuradas no sistema.
 
 ## Publicação
 
@@ -114,7 +121,7 @@ Os arquivos publicados serão gerados em:
 bin/Release/net10.0-windows/win-x64/publish/
 ```
 
-A publicação self-contained inclui o runtime necessário para executar o aplicativo, dispensando a instalação separada do runtime do .NET 10 pelo usuário.
+A publicação `self-contained` inclui o runtime necessário para executar o aplicativo, dispensando a instalação separada do runtime do .NET 10 pelo usuário.
 
 ## Gerar o instalador
 
@@ -137,7 +144,7 @@ O instalador configura:
 
 ## Integração com o Windows
 
-O instalador registra o SimpleNotes como aplicativo capaz de abrir arquivos de diferentes extensões e adiciona uma ação de abertura ao menu de contexto.
+O instalador registra o SimpleNotes no Windows e adiciona uma opção para abrir arquivos pelo menu de contexto.
 
 A associação como aplicativo padrão continua sob controle do usuário, por meio das configurações do Windows.
 
@@ -151,22 +158,21 @@ Os arquivos de código-fonte, configurações e scripts do instalador devem ser 
 
 Pastas geradas durante compilação e publicação não devem ser enviadas ao repositório:
 
-```gitignore
+```text
 bin/
 obj/
 .vs/
 publish/
 InstallerOutput/
 ```
+
 ## Licença
 
 Este projeto está licenciado sob a GNU General Public License v3.0 (GPL-3.0).
 
-Você pode utilizar, estudar, modificar e redistribuir este software,
-desde que respeite os termos da licença.
+Você pode utilizar, estudar, modificar e redistribuir este software, desde que respeite os termos da licença.
 
 Consulte o arquivo [LICENSE](LICENSE) para obter o texto completo.
-
 
 ---
 
