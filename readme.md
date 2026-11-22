@@ -69,7 +69,7 @@ SimpleNotes/
 Clone o repositório:
 
 ```bash
-git clone URL_DO_REPOSITORIO
+git clone https://github.com/hiagosso/SimpleNotesApp.git
 ```
 
 Entre na pasta do projeto:
@@ -158,10 +158,15 @@ obj/
 publish/
 InstallerOutput/
 ```
-
 ## Licença
 
-Definir licença do projeto antes da distribuição pública.
+Este projeto está licenciado sob a GNU General Public License v3.0 (GPL-3.0).
+
+Você pode utilizar, estudar, modificar e redistribuir este software,
+desde que respeite os termos da licença.
+
+Consulte o arquivo [LICENSE](LICENSE) para obter o texto completo.
+
 
 ---
 
