@@ -28,155 +28,157 @@ namespace SimpleNotes
         /// </summary>
         private void InitializeComponent()
         {
-            menuStrip = new System.Windows.Forms.MenuStrip();
-            fileMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            newMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            openMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            saveMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            saveAsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            exitMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            helpMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            aboutMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            statusStrip = new System.Windows.Forms.StatusStrip();
-            statusMessage = new System.Windows.Forms.ToolStripStatusLabel();
-            zoomIndicator = new System.Windows.Forms.ToolStripStatusLabel();
-            textArea = new System.Windows.Forms.TextBox();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
+            menuStrip = new MenuStrip();
+            fileMenuItem = new ToolStripMenuItem();
+            newMenuItem = new ToolStripMenuItem();
+            openMenuItem = new ToolStripMenuItem();
+            toolStripSeparator1 = new ToolStripSeparator();
+            saveMenuItem = new ToolStripMenuItem();
+            saveAsMenuItem = new ToolStripMenuItem();
+            toolStripSeparator2 = new ToolStripSeparator();
+            exitMenuItem = new ToolStripMenuItem();
+            helpMenuItem = new ToolStripMenuItem();
+            aboutMenuItem = new ToolStripMenuItem();
+            statusStrip = new StatusStrip();
+            statusMessage = new ToolStripStatusLabel();
+            zoomIndicator = new ToolStripStatusLabel();
+            textArea = new TextBox();
             menuStrip.SuspendLayout();
             statusStrip.SuspendLayout();
             SuspendLayout();
             // 
             // menuStrip
             // 
-            menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { fileMenuItem, helpMenuItem });
-            menuStrip.Location = new System.Drawing.Point(0, 0);
+            menuStrip.Items.AddRange(new ToolStripItem[] { fileMenuItem, helpMenuItem });
+            menuStrip.Location = new Point(0, 0);
             menuStrip.Name = "menuStrip";
-            menuStrip.Size = new System.Drawing.Size(800, 24);
+            menuStrip.Size = new Size(800, 24);
             menuStrip.TabIndex = 0;
             // 
             // fileMenuItem
             // 
-            fileMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { newMenuItem, openMenuItem, toolStripSeparator1, saveMenuItem, saveAsMenuItem, toolStripSeparator2, exitMenuItem });
+            fileMenuItem.DropDownItems.AddRange(new ToolStripItem[] { newMenuItem, openMenuItem, toolStripSeparator1, saveMenuItem, saveAsMenuItem, toolStripSeparator2, exitMenuItem });
             fileMenuItem.Name = "fileMenuItem";
-            fileMenuItem.Size = new System.Drawing.Size(61, 20);
+            fileMenuItem.Size = new Size(61, 20);
             fileMenuItem.Text = "&Arquivo";
             // 
             // newMenuItem
             // 
             newMenuItem.Name = "newMenuItem";
-            newMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N;
-            newMenuItem.Size = new System.Drawing.Size(180, 22);
+            newMenuItem.ShortcutKeys = Keys.Control | Keys.N;
+            newMenuItem.Size = new Size(220, 22);
             newMenuItem.Text = "&Novo";
             newMenuItem.Click += NewMenuItemClick;
             // 
             // openMenuItem
             // 
             openMenuItem.Name = "openMenuItem";
-            openMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O;
-            openMenuItem.Size = new System.Drawing.Size(180, 22);
+            openMenuItem.ShortcutKeys = Keys.Control | Keys.O;
+            openMenuItem.Size = new Size(220, 22);
             openMenuItem.Text = "&Abrir";
             openMenuItem.Click += OpenMenuItemClick;
             // 
             // toolStripSeparator1
             // 
             toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            toolStripSeparator1.Size = new Size(217, 6);
             // 
             // saveMenuItem
             // 
             saveMenuItem.Name = "saveMenuItem";
-            saveMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S;
-            saveMenuItem.Size = new System.Drawing.Size(180, 22);
+            saveMenuItem.ShortcutKeys = Keys.Control | Keys.S;
+            saveMenuItem.Size = new Size(220, 22);
             saveMenuItem.Text = "&Salvar";
             saveMenuItem.Click += SaveMenuItemClick;
             // 
             // saveAsMenuItem
             // 
             saveAsMenuItem.Name = "saveAsMenuItem";
-            saveAsMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift | System.Windows.Forms.Keys.S;
-            saveAsMenuItem.Size = new System.Drawing.Size(180, 22);
+            saveAsMenuItem.ShortcutKeys = Keys.Control | Keys.Shift | Keys.S;
+            saveAsMenuItem.Size = new Size(220, 22);
             saveAsMenuItem.Text = "Salvar &como...";
             saveAsMenuItem.Click += SaveAsMenuItemClick;
             // 
             // toolStripSeparator2
             // 
             toolStripSeparator2.Name = "toolStripSeparator2";
-            toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
+            toolStripSeparator2.Size = new Size(217, 6);
             // 
             // exitMenuItem
             // 
             exitMenuItem.Name = "exitMenuItem";
             exitMenuItem.ShortcutKeyDisplayString = "Esc";
-            exitMenuItem.Size = new System.Drawing.Size(180, 22);
+            exitMenuItem.Size = new Size(220, 22);
             exitMenuItem.Text = "&Sair";
             exitMenuItem.Click += ExitMenuItemClick;
             // 
             // helpMenuItem
             // 
-            helpMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { aboutMenuItem });
+            helpMenuItem.DropDownItems.AddRange(new ToolStripItem[] { aboutMenuItem });
             helpMenuItem.Name = "helpMenuItem";
-            helpMenuItem.Size = new System.Drawing.Size(50, 20);
+            helpMenuItem.Size = new Size(50, 20);
             helpMenuItem.Text = "&Ajuda";
             // 
             // aboutMenuItem
             // 
             aboutMenuItem.Name = "aboutMenuItem";
-            aboutMenuItem.Size = new System.Drawing.Size(180, 22);
+            aboutMenuItem.Size = new Size(104, 22);
             aboutMenuItem.Text = "&Sobre";
             aboutMenuItem.Click += AboutMenuItemClick;
             // 
             // statusStrip
             // 
-            statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { statusMessage, zoomIndicator });
-            statusStrip.Location = new System.Drawing.Point(0, 578);
+            statusStrip.Items.AddRange(new ToolStripItem[] { statusMessage, zoomIndicator });
+            statusStrip.Location = new Point(0, 578);
             statusStrip.Name = "statusStrip";
-            statusStrip.Size = new System.Drawing.Size(800, 22);
+            statusStrip.Size = new Size(800, 22);
             statusStrip.TabIndex = 1;
             // 
             // statusMessage
             // 
             statusMessage.Name = "statusMessage";
-            statusMessage.Size = new System.Drawing.Size(729, 17);
+            statusMessage.Size = new Size(728, 17);
             statusMessage.Spring = true;
             statusMessage.Text = "Pronto";
-            statusMessage.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            statusMessage.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // zoomIndicator
             // 
             zoomIndicator.Name = "zoomIndicator";
-            zoomIndicator.Size = new System.Drawing.Size(55, 17);
+            zoomIndicator.Size = new Size(57, 17);
             zoomIndicator.Text = "Zoom: 14";
-            zoomIndicator.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            zoomIndicator.TextAlign = ContentAlignment.MiddleRight;
             // 
             // textArea
             // 
             textArea.AcceptsReturn = true;
             textArea.AcceptsTab = true;
-            textArea.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            textArea.Dock = System.Windows.Forms.DockStyle.Fill;
-            textArea.Location = new System.Drawing.Point(0, 24);
+            textArea.BorderStyle = BorderStyle.None;
+            textArea.Dock = DockStyle.Fill;
+            textArea.Location = new Point(0, 24);
             textArea.Multiline = true;
             textArea.Name = "textArea";
-            textArea.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            textArea.Size = new System.Drawing.Size(800, 554);
+            textArea.ScrollBars = ScrollBars.Both;
+            textArea.Size = new Size(800, 554);
             textArea.TabIndex = 2;
             textArea.TextChanged += TextAreaTextChanged;
             textArea.MouseWheel += TextAreaMouseWheel;
             // 
             // MainForm
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(800, 600);
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(800, 600);
             Controls.Add(textArea);
             Controls.Add(statusStrip);
             Controls.Add(menuStrip);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             KeyPreview = true;
             MainMenuStrip = menuStrip;
-            MinimumSize = new System.Drawing.Size(500, 400);
+            MinimumSize = new Size(500, 400);
             Name = "MainForm";
-            StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Simple Notes";
             FormClosing += MainFormClosing;
             Load += MainFormLoad;
