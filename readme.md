@@ -1,6 +1,6 @@
 # SimpleNotes
 
-Um editor de texto para Windows, desenvolvido em C# com WPF e .NET 10.
+Um editor de texto para Windows, desenvolvido em C# com Windows Forms e .NET 10.
 
 O SimpleNotes tem como objetivo oferecer uma experiência simples e direta para criação, edição e gerenciamento de arquivos de texto, com integração ao sistema operacional Windows.
 
@@ -28,8 +28,7 @@ O SimpleNotes tem como objetivo oferecer uma experiência simples e direta para 
 
 - C#
 - .NET 10
-- WPF
-- XAML
+- Windows Forms
 - Inno Setup
 
 ## Estrutura do projeto
@@ -53,12 +52,11 @@ SimpleNotes/
 ├── utils/
 │   └── FileOperations.cs
 │
-├── MainWindow.xaml
-├── MainWindow.xaml.cs
-├── AboutWindow.xaml
-├── AboutWindow.xaml.cs
-├── App.xaml
-├── App.xaml.cs
+├── Program.cs
+├── MainForm.cs
+├── MainForm.Designer.cs
+├── AboutForm.cs
+├── AboutForm.Designer.cs
 ├── SimpleNotes.csproj
 ├── LICENSE
 └── README.md
@@ -176,4 +174,4 @@ Consulte o arquivo [LICENSE](LICENSE) para obter o texto completo.
 
 ---
 
-Desenvolvido como projeto de aprendizado e prática de desenvolvimento desktop com C# e WPF.
+Desenvolvido como projeto de aprendizado e prática de desenvolvimento desktop com C# e Windows Forms.

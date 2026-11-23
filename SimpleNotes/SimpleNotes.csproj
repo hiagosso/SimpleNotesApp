@@ -5,17 +5,17 @@
         <TargetFramework>net10.0-windows</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
-        <UseWPF>true</UseWPF>
-		<SelfContained>true</SelfContained>
-		<RuntimeIdentifier>win-x64</RuntimeIdentifier>
-
-
-		<ApplicationIcon>Assets\icone.ico</ApplicationIcon>
+        <UseWindowsForms>true</UseWindowsForms>
+        <SelfContained>true</SelfContained>
+        <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+        <ApplicationIcon>Assets\icone.ico</ApplicationIcon>
+        <StartupObject>SimpleNotes.Program</StartupObject>
     </PropertyGroup>
 
     <ItemGroup>
-      <None Remove="Assets\icone.ico" />
-      <Resource Include="Assets\icone.ico" />
+      <None Update="Assets\icone.ico">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
     </ItemGroup>
 
 </Project>
