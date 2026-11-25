@@ -6,7 +6,7 @@
 #define AppId "A91C8E35-7B21-4D93-9F14-2A6E8C51B730"
 
 // Ajuste se sua pasta de publicação estiver em outro local.
-#define PublishDir "..\SimpleNotes\bin\Release\net10.0-windows\win-x64\publish"
+#define PublishDir ".\bin\Release\net10.0-windows\win-x64\publish"
 
 [Setup]
 AppId={#AppId}
